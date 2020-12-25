@@ -3,6 +3,7 @@ package grsoft.com.br.nybooks.data.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import grsoft.com.br.nybooks.data.model.Book
 
 @JsonClass(generateAdapter = true)
 data class BookDetail(
@@ -26,4 +27,8 @@ data class BookDetail(
     val publisher: String,
     @Json(name = "title")
     val title: String
-)
+) {
+    fun getBookModel() = Book(title = this.title,
+        author = this.author,
+        description = this.description)
+}
