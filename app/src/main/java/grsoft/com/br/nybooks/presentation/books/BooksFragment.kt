@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import grsoft.com.br.nybooks.data.repository.BooksApiDataSource
 import grsoft.com.br.nybooks.databinding.FragmentBooksBinding
 
 class BooksFragment : Fragment() {
@@ -27,7 +28,8 @@ class BooksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val booksViewModel: BooksViewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
+        val booksViewModel: BooksViewModel = BooksViewModel.ViewModelFactory(BooksApiDataSource())
+            .create(BooksViewModel::class.java)
 
         booksViewModel.booksLiveData.observe(viewLifecycleOwner, Observer {
             it?.let { books ->
